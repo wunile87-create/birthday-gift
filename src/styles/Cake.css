@@ -1,0 +1,129 @@
+/* 整个蛋糕和火光的容器，在屏幕中下部居中 */
+.cake-reveal-container {
+  position: absolute;
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px) scale(0.95);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+.cake-reveal-container.lit-up {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0) scale(1);
+}
+
+/* 蜡烛和火苗：最优先直接亮起 */
+.cake-reveal-container .candles {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: -5px;
+  z-index: 12;
+  position: relative;
+}
+
+.candle {
+  width: 6px;
+  height: 30px;
+  background: linear-gradient(to bottom, #ff7675, #ffeaa7);
+  border-radius: 3px;
+  position: relative;
+  opacity: 0.35;
+  transform: translateY(16px) scale(0.9);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.candle.lit {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* 🔥 真实的火苗动态与呼吸感 */
+.flame {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 18px;
+  background: linear-gradient(to top, #ff6b6b, #ffbe76, #ffffff);
+  border-radius: 50% 50% 20% 20%;
+  box-shadow: 0 0 10px #ffbe76, 0 0 20px #ff6b6b;
+  animation: flicker 0.15s ease-in-out infinite alternate;
+}
+
+@keyframes flicker {
+  0% { transform: translateX(-50%) scale(1) rotate(-1deg); }
+  100% { transform: translateX(-50%) scale(1.05) rotate(1.5deg); filter: brightness(1.1); }
+}
+
+/* ================= 🕯️ 烛光烘托出的蛋糕显影 ================= */
+/* 蛋糕本体默认是几乎黑掉、模糊且完全透明的 */
+.cake-reveal-container .cake-layers {
+  opacity: 0;
+  filter: brightness(0.1) blur(6px);
+  transition: opacity 3.5s cubic-bezier(0.4, 0, 0.2, 1), 
+              filter 4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 当火光彻底点燃 (lit-up) 后，蛋糕借着暖光徐徐实体化 */
+.cake-reveal-container.lit-up .cake-layers {
+  opacity: 1;
+  filter: brightness(1) blur(0px);
+}
+
+/* 暖橘色环境晕染：在蛋糕周围晕开一圈治愈的微光 */
+.candle-glow-aura {
+  position: absolute;
+  top: -40px;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(255, 140, 0, 0.25) 0%, rgba(0, 0, 0, 0) 70%);
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 3s ease, transform 3.5s ease;
+  pointer-events: none;
+  z-index: 9;
+}
+.cake-reveal-container.lit-up .candle-glow-aura {
+  opacity: 1;
+  transform: scale(1.3);
+}
+
+/* ================= 🍰 蛋糕本体极简样式 ================= */
+.cake-board {
+  width: 160px;
+  height: 10px;
+  background: #dfe6e9;
+  border-radius: 5px;
+}
+.cake-body {
+  width: 130px;
+  height: 60px;
+  background: #ffeaa7; /* 暖色奶油 */
+  border-radius: 4px 4px 0 0;
+  position: relative;
+  overflow: hidden;
+}
+.cream-middle {
+  position: absolute;
+  top: 25px;
+  width: 100%;
+  height: 10px;
+  background: #ff7675; /* 草莓夹层 */
+}
+.cream-top {
+  width: 130px;
+  height: 8px;
+  background: #ffffff;
+  border-radius: 4px 4px 0 0;
+  margin-bottom: -2px;
+}

@@ -1,0 +1,15 @@
+.sky-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to bottom, #070a13, #0f172a);
+  z-index: 1;
+  transition: background 3s ease;
+}
+
+/* 场景 7 画面全黑 */
+.sky-bg.scene-7 {
+  background: #000000 !important;
+}

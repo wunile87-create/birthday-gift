@@ -1,0 +1,238 @@
+body {
+  margin: 0;
+}
+.sky {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+
+  background: radial-gradient(
+    circle at bottom,
+    #284a7a 0%,
+    #11294d 30%,
+    #07172c 65%,
+    #01040b 100%
+  );
+}
+h1 {
+  color: white;
+  font-size: 48px;
+}
+.star {
+  position: absolute;
+  border-radius: 50%;
+  animation: twinkle 2s infinite;
+  box-shadow: 0 0 2px rgba(255,255,255,0.4);
+}
+@keyframes twinkle {
+  0% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+
+  100% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+}
+
+.small{
+    border-radius:50%;
+    opacity:.4;
+}
+.normal{
+    border-radius:50%;
+    opacity:.7;
+}
+.bright{
+
+    border-radius:50%;
+
+    box-shadow:
+        0 0 5px white,
+        0 0 10px rgba(255,255,255,.7);
+
+}
+.cross{
+
+    background:none !important;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-shadow:
+        0 0 8px white,
+        0 0 18px white;
+}
+.meteor {
+  position: absolute;
+
+  width: 220px;
+  height: 2px;
+
+  background: linear-gradient(
+    to right,
+    rgba(255,255,255,0),
+    rgba(255,255,255,1)
+  );
+
+  top: 100px;
+  left: -250px;
+
+  transform: rotate(-25deg);
+  animation: meteorMove 3s linear infinite;
+}
+@keyframes meteorMove {
+
+  from {
+    left: -300px;
+    top: 50px;
+  }
+
+  to {
+    left: 120%;
+    top: 450px;
+  }
+
+}
+.final-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99; /* 盖在最上层 */
+  animation: slow-black 2s forwards;
+}
+
+.fade-in-text {
+  color: #fff;
+  font-size: 2rem;
+  font-family: 'Georgia', serif;
+  letter-spacing: 3px;
+  opacity: 0;
+  animation: text-fade-in 4s 2s forwards; /* 黑屏2秒后开始浮现 */
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+@keyframes slow-black {
+  0% { background: rgba(0,0,0,0); }
+  100% { background: rgba(0,0,0,1); }
+}
+
+@keyframes text-fade-in {
+  0% { opacity: 0; transform: scale(0.95); }
+  50% { opacity: 1; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.start-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+}
+
+.start-card {
+  padding: 16px 24px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #111;
+  font-size: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+
+.music-panel {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 16px;
+  background: rgba(10, 18, 36, 0.55);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.music-status {
+  color: #fff;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+
+.fireworks-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 80;
+  pointer-events: none;
+}
+
+.firework-piece {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0;
+  animation: fireworkBurst 1.2s var(--delay) ease-out forwards;
+}
+
+.firework-piece::before,
+.firework-piece::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: inherit;
+  animation: fireworkBurst 1.2s var(--delay) ease-out forwards;
+}
+
+.firework-piece::before {
+  transform: translate(var(--x), var(--y));
+}
+
+.firework-piece::after {
+  transform: translate(calc(var(--x) * -1), calc(var(--y) * -1));
+}
+
+@keyframes fireworkBurst {
+  0% {
+    opacity: 0;
+    transform: scale(0.2) translate(0, 0);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.4) translate(var(--x), var(--y));
+  }
+}
+
+.stars-container.celebration-mode .star-unit {
+  filter: brightness(1.15);
+}

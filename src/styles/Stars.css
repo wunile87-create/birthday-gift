@@ -1,0 +1,230 @@
+/* ================= 👑 日文字体经典居中排版 ================= */
+.birthday-text-layer {
+  position: absolute;
+  top: 45%; /* 稍微偏上，给下方显现的蛋糕留出视觉空间 */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-family: "Georgia", "YuMincho", serif;
+  color: #ffffff;
+  opacity: 0;
+  z-index: 40;
+  width: auto;
+  pointer-events: none;
+  transition: opacity 2s ease;
+}
+
+.birthday-text-layer .line-1 {
+  font-size: 2.2rem;
+  letter-spacing: 0.15em;
+  margin-bottom: 12px;
+  text-align: left;
+  text-shadow: 0 0 8px rgba(255,255,255,0.3);
+}
+
+.birthday-text-layer .line-2 {
+  font-size: 2rem;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  text-shadow: 0 0 8px rgba(255,255,255,0.3);
+}
+
+.birthday-text-layer.fade-in { opacity: 1; }
+/* 场景6：文字优雅地淡出，给蛋糕让路 */
+.birthday-text-layer.fade-out { opacity: 0; transition: opacity 1.5s ease; }
+
+/* ================= ✨ 缀字大黄星 ================= */
+.star-unit.attached-to-text {
+  z-index: 45 !important;
+  opacity: 0;
+  /* 优雅飘移到指定字笔画旁 */
+  transition: left 2.5s cubic-bezier(0.25, 1, 0.5, 1), top 2.5s cubic-bezier(0.25, 1, 0.5, 1);
+  animation: glow-pulse 2s infinite ease-in-out;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.4; scale: 0.9; text-shadow: 0 0 4px #ffd700; }
+  50% { opacity: 1; scale: 1.2; text-shadow: 0 0 12px #ffd700, 0 0 20px #ff8c00; }
+}
+
+/* ================= 🌠 漫天流星雨群 ================= */
+.meteors-shower {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0; left: 0;
+  z-index: 2;
+}
+.meteor {
+  position: absolute;
+  width: 2px;
+  height: 50px;
+  background: linear-gradient(to top, rgba(255,255,255,1), rgba(255,255,255,0));
+  transform: rotate(-35deg);
+  opacity: 0;
+  animation: meteor-swipe 2s cubic-bezier(0.1, 0.5, 0.1, 1) forwards;
+}
+/* 差异化多颗流星的轨迹和出现时间 */
+.meteor.m1 { top: 10%; left: 40%; animation-delay: 0.2s; }
+.meteor.m2 { top: 5%; left: 70%; height: 70px; animation-delay: 0.6s; }
+.meteor.m3 { top: 20%; left: 20%; animation-delay: 1.1s; }
+.meteor.m4 { top: 15%; left: 80%; height: 40px; animation-delay: 1.5s; }
+
+@keyframes meteor-swipe {
+  0% { transform: translate(0, 0) rotate(-35deg); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate(-200px, 300px) rotate(-35deg); opacity: 0; }
+}
+/* 第一阶段文字：优雅浮现在蛋糕上方 */
+.birthday-text-layer {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+  font-size: 32px;
+  font-family: "Georgia", "Times New Roman", "Mincho", serif;
+  letter-spacing: 4px;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+  white-space: nowrap;
+  z-index: 20;
+}
+
+/* 第二阶段最终敬语文案 */
+.final-text-layer {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+  text-align: center;
+  font-family: "Georgia", "Mincho", serif;
+  z-index: 20;
+}
+.final-text-layer .line-1 {
+  font-size: 28px;
+  margin-bottom: 15px;
+  letter-spacing: 6px;
+  display: flex;
+  justify-content: center;
+  gap: 0.08em;
+}
+.final-text-layer .line-2 {
+  font-size: clamp(20px, 4.5vw, 36px);
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+  white-space: normal;
+  max-width: min(88vw, 560px);
+  margin: 0 auto;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.08em;
+}
+
+/* 基础平滑过渡类 */
+.fade-in {
+  opacity: 0;
+  animation: smoothFadeIn 2.5s forwards cubic-bezier(0.4, 0, 0.2, 1);
+}
+.fade-out {
+  opacity: 1;
+  animation: smoothFadeOut 2s forwards cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 蛋糕整体平滑淡出 */
+.cake-fade-out {
+  opacity: 1;
+  animation: smoothFadeOut 2.5s forwards cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes smoothFadeIn { to { opacity: 1; } }
+@keyframes smoothFadeOut { to { opacity: 0; } }
+
+/* 星星独立舒缓呼吸 */
+.independent-blink {
+  animation: starBreathe var(--blink-duration) infinite ease-in-out alternate;
+  animation-delay: var(--blink-delay);
+}
+@keyframes starBreathe {
+  0% { opacity: 0.2; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1.1); }
+}
+
+/* 缀字星专属温柔柔光 */
+.attached-star {
+  animation: textStarBreathe 2s infinite ease-in-out alternate;
+}
+@keyframes textStarBreathe {
+  0% { opacity: 0.5; filter: brightness(0.8); }
+  100% { opacity: 1; filter: brightness(1.3); }
+}
+
+/* 星星汇聚到文字上的效果 */
+.text-assembly-star {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffd700;
+  font-size: 1.1rem;
+  text-shadow: 0 0 10px #ffd700, 0 0 20px rgba(255, 215, 0, 0.6);
+  pointer-events: none;
+  z-index: 46;
+  opacity: 0;
+  animation: assemble-star var(--duration) cubic-bezier(0.22, 1, 0.36, 1) forwards, settle-glow 1.1s ease-in-out infinite alternate;
+  animation-delay: var(--delay), calc(var(--duration) + var(--delay));
+}
+
+@keyframes assemble-star {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.2) rotate(0deg);
+  }
+  20% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1.15) rotate(16deg);
+  }
+  72% {
+    opacity: 1;
+    transform: translate3d(calc(var(--to-x) - var(--start-x)), calc(var(--to-y) - var(--start-y)), 0) scale(1.12) rotate(-6deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(calc(var(--to-x) - var(--start-x)), calc(var(--to-y) - var(--start-y)), 0) scale(var(--settle-scale));
+  }
+}
+
+@keyframes settle-glow {
+  0% {
+    filter: brightness(0.95) drop-shadow(0 0 2px rgba(255, 215, 0, 0.4));
+    transform: translate3d(calc(var(--to-x) - var(--start-x)), calc(var(--to-y) - var(--start-y)), 0) scale(var(--settle-scale));
+  }
+  100% {
+    filter: brightness(1.25) drop-shadow(0 0 8px rgba(255, 215, 0, 0.75));
+    transform: translate3d(calc(var(--to-x) - var(--start-x)), calc(var(--to-y) - var(--start-y)), 0) scale(calc(var(--settle-scale) + 0.05));
+  }
+}
+
+.final-text-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(8px) scale(0.9);
+  animation: char-appear 0.7s ease forwards;
+  animation-delay: calc(var(--char-index) * 0.04s);
+  transition: transform 0.4s ease, text-shadow 0.4s ease;
+}
+
+@keyframes char-appear {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
+  }
+}
+
+.final-text-layer:hover .final-text-char {
+  transform: translateY(-2px);
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
+}
