@@ -3,23 +3,13 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-<<<<<<< HEAD
- "scripts": {
-  "dev": "vite",
-  "build": "tsc -b && vite build",
-  "lint": "eslint .",
-  "preview": "vite preview",
-  "deploy": "npm run build && gh-pages -d dist"
-},
-=======
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "deploy": "gh-pages -d dist"
+    "deploy": "npm run build && gh-pages -d dist"
   },
->>>>>>> d3eda27 (usic)
   "dependencies": {
     "react": "^19.2.7",
     "react-dom": "^19.2.7"
