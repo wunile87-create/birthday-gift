@@ -6,11 +6,12 @@ import Cake from './components/Cake';
 import Meteor from './components/Meteor';
 
 function App() {
-  const { scene } = useScene();
+  const { scene, startScene } = useScene();
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
-  const [volume] = useState(0.35);
+  const [volume] = useState(0.8);
+  const audioSrc = `${import.meta.env.BASE_URL}happy-birthday.mp3`;
 
   useEffect(() => {
     if (audioRef.current) {
@@ -18,29 +19,20 @@ function App() {
     }
   }, [volume]);
 
-  useEffect(() => {
+  const startExperience = async () => {
     if (hasStarted) return;
 
-    const startAudio = async () => {
-      if (!audioRef.current) return;
-      try {
-        audioRef.current.currentTime = 0;
-        await audioRef.current.play();
-        setIsPlaying(true);
-      } catch {
-        setIsPlaying(false);
-      }
-    };
-
-    void startAudio();
-  }, [hasStarted]);
-
-  const handleStartExperience = async () => {
-    if (!audioRef.current) return;
+    const audio = audioRef.current;
+    if (!audio) return;
 
     try {
-      await audioRef.current.play();
+      audio.volume = volume;
+      audio.currentTime = 0;
+      await audio.play();
       setIsPlaying(true);
+      setTimeout(() => {
+        startScene();
+      }, 150);
       setHasStarted(true);
     } catch {
       setIsPlaying(false);
@@ -48,18 +40,43 @@ function App() {
     }
   };
 
+  const stopExperience = () => {
+    const audio = audioRef.current;
+    if (audio) {
+      audio.pause();
+      audio.currentTime = 0;
+    }
+
+    setIsPlaying(false);
+  };
+
   return (
-    <div className="app-container" style={{ background: '#050505', width: '100vw', height: '100vh', overflow: 'hidden', position: 'relative' }}>
-      <audio ref={audioRef} src="/happy-birthday.mp3" preload="auto" loop />
+    <div
+      className="app-container"
+      style={{ background: '#050505', width: '100vw', height: '100vh', overflow: 'hidden', position: 'relative' }}
+      onClick={startExperience}
+      onTouchStart={startExperience}
+    >
+      <audio ref={audioRef} src={audioSrc} preload="auto" loop />
 
       {!hasStarted && (
-        <div className="start-overlay" onClick={handleStartExperience}>
-          <div className="start-card">🎊 生日快乐！</div>
+        <div className="start-hint">
+          <div className="start-hint-card">誕生日おめでとうございます❣</div>
         </div>
       )}
 
       <div className="music-panel">
-        <div className="music-status">{isPlaying ? '🎵 生日快乐正在演奏' : '🎵 生日快乐即将开始'}</div>
+        <div className="music-status">{isPlaying ? '🎵 正在播放' : '🎵 已暂停'}</div>
+        <button className="stop-button" onClick={(event) => {
+          event.stopPropagation();
+          if (isPlaying) {
+            stopExperience();
+          } else {
+            void startExperience();
+          }
+        }}>
+          {isPlaying ? '停止' : '继续'}
+        </button>
       </div>
 
       <Stars scene={scene} />

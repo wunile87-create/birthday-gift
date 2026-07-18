@@ -181,6 +181,41 @@ h1 {
   white-space: nowrap;
 }
 
+.stop-button {
+  border: none;
+  border-radius: 999px;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #111;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.start-hint {
+  position: absolute;
+  inset: 0;
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.start-hint-card {
+  padding: 14px 24px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #111;
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  animation: hintPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes hintPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25); }
+  50% { transform: scale(1.03); box-shadow: 0 16px 36px rgba(255, 215, 0, 0.3); }
+}
 
 .fireworks-layer {
   position: absolute;
